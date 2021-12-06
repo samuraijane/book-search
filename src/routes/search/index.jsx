@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import Modal from '../modal/modal';
+import { Outlet } from 'react-router-dom';
+import Modal from '../../components/modal/modal';
 import './style.css';
 
 function Search() {
@@ -78,6 +79,7 @@ function Search() {
       {bookDescription && (
         <Modal description={bookDescription} closeModal={closeModal} />
       )}
+      <Outlet />
     </>
   );
 }
