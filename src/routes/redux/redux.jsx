@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { useState } from 'react';
-import addNewFriend from '../../redux/actions/addNewFriend';
+import { addNewFriend } from '../../redux/actions/addNewFriend';
 import './style.css';
 
 function Redux({friends, addNewFriend}) {

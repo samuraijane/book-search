@@ -1,1 +1,2 @@
 export const ADD_NEW_FRIEND = 'ADD_NEW_FRIEND';
+export const EXECUTE_SEARCH = 'EXECUTE_SEARCH';

@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { executeSearch } from '../../redux/actions/addNewFriend';
 import Modal from '../../components/modal/modal';
 import './style.css';
 
-function Search() {
+function Search({executeSearch}) {
 
   const [fieldData, setFieldData] = useState({
     author: null,
@@ -27,12 +29,10 @@ function Search() {
     } else {
       fieldDataCopy.title = value;
     }
-    console.log(fieldDataCopy);
     setFieldData(fieldDataCopy);
   };
 
   const renderResponse = books => {
-    console.log(books);
     const listOfBooks = books.map((book, index) => {
       return <li data-bookId={book.key} key={index}>{book.title}</li>;
     });
@@ -41,9 +41,10 @@ function Search() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    fetch(`http://openlibrary.org/search.json?author=${fieldData.author}&limit=10`)
-    .then(result => result.json())
-    .then(data => renderResponse(data.docs));
+    // fetch(`http://openlibrary.org/search.json?author=${fieldData.author}&limit=10`)
+    // .then(result => result.json())
+    // .then(data => renderResponse(data.docs));
+    executeSearch(fieldData.author, fieldData.title);
   }
 
   const handleClick = e => {
@@ -84,4 +85,8 @@ function Search() {
   );
 }
 
-export default Search;
+const mapDispatchToProps = {
+  executeSearch
+}
+
+export default connect(null, mapDispatchToProps)(Search);
