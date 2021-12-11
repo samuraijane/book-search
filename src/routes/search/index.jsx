@@ -3,27 +3,18 @@ import { Outlet } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { executeSearch } from '../../redux/actions/actions';
 import Modal from '../../components/modal/modal';
+import { createListOfBooks } from '../../utils';
 import './style.css';
 
 function Search({executeSearch, results}) {
 
-  const createListOfBooks = books => {
-    const listOfBooks = books.map((book, index) => {
-      return <li data-bookId={book.key} key={index}>{book.title}</li>;
-    });
-    return listOfBooks;
-  }
-
+  const [bookDescription, setBookDescription] = useState(null);
   const [fieldData, setFieldData] = useState({
     author: null,
     title: null
   });
-
   const [listOfBooks, setListOfBooks] = useState('');
-
-  // TODO refactor this later since we have two responses
-  const [response, setReponse] = useState(null);
-  const [bookDescription, setBookDescription] = useState(null);
+  
 
   useEffect(() => {
     const listOfBooks = createListOfBooks(results);
