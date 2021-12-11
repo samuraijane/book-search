@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { executeSearch } from '../../redux/actions/addNewFriend';
+import { executeSearch } from '../../redux/actions/actions';
 import Modal from '../../components/modal/modal';
 import './style.css';
 
