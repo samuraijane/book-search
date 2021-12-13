@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { executeSearch } from '../../redux/actions/actions';
+import { executeSearch, setModalMessage } from '../../redux/actions/actions';
 import Modal from '../../components/modal/modal';
 import { createListOfBooks } from '../../utils';
 import './style.css';
 
-function Search({executeSearch, results}) {
+function Search({executeSearch, modalMessage, results, setModalMessage}) {
 
-  const [bookDescription, setBookDescription] = useState(null);
   const [fieldData, setFieldData] = useState({
     author: null,
     title: null
@@ -43,14 +42,14 @@ function Search({executeSearch, results}) {
   }
 
   const handleClick = e => {
-    const bookId = e.target.getAttribute('data-bookId');
+    const bookId = e.target.getAttribute('data-bookid');
     fetch(`http://openlibrary.org${bookId}.json`)
     .then(result => result.json())
-    .then(data => setBookDescription(data.description));
+    .then(data => setModalMessage(data.description))
   }
 
   const closeModal = () => {
-    setBookDescription(null);
+    //setBookDescription(null);
   }
 
   return (
@@ -72,8 +71,8 @@ function Search({executeSearch, results}) {
           <ul className="results__books" onClick={handleClick}>{listOfBooks}</ul>
         </div>
       )}
-      {bookDescription && (
-        <Modal description={bookDescription} closeModal={closeModal} />
+      {modalMessage && (
+        <Modal description={modalMessage} closeModal={closeModal} />
       )}
       <Outlet />
     </>
@@ -81,11 +80,13 @@ function Search({executeSearch, results}) {
 }
 
 const mapDispatchToProps = {
-  executeSearch
+  executeSearch,
+  setModalMessage
 }
 
 const mapStateToProps = state => ({
-  results: state.searchResults
+  modalMessage: state.modal.message,
+  results: state.search.results
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
