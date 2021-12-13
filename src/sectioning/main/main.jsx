@@ -18,7 +18,7 @@ function Main({modalMessage}) {
         <Route path="*" element={<p>There's nothing here!</p>} />
       </Routes>
       {modalMessage && (
-        <Modal description={modalMessage} />
+        <Modal />
       )}
     </main>
   );

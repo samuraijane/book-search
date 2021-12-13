@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { executeSearch, setModalMessage } from '../../redux/actions/actions';
-import Modal from '../../components/modal/modal';
 import { createListOfBooks } from '../../utils';
 import './style.css';
 
-function Search({executeSearch, modalMessage, results, setModalMessage}) {
+function Search({executeSearch, results, setModalMessage}) {
 
   const [fieldData, setFieldData] = useState({
     author: null,
