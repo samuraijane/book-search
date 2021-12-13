@@ -1,10 +1,12 @@
-import {Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import { connect } from 'react-redux';
 import About from '../../routes/about/about';
 import Login from '../../routes/login/login';
+import Modal from '../../components/modal/modal';
 import Search from '../../routes/search';
 import './style.css';
 
-function Main() {
+function Main({modalMessage}) {
   return (
     <main>
       <Routes>
@@ -15,8 +17,15 @@ function Main() {
         </Route>
         <Route path="*" element={<p>There's nothing here!</p>} />
       </Routes>
+      {modalMessage && (
+        <Modal description={modalMessage} />
+      )}
     </main>
   );
 }
 
-export default Main;
+const mapStateToProps = state => ({
+  modalMessage: state.modal.message
+})
+
+export default connect(mapStateToProps)(Main);

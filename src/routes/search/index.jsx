@@ -48,10 +48,6 @@ function Search({executeSearch, modalMessage, results, setModalMessage}) {
     .then(data => setModalMessage(data.description))
   }
 
-  const closeModal = () => {
-    //setBookDescription(null);
-  }
-
   return (
     <>
       <form className="form" onSubmit={handleSubmit}>
@@ -65,14 +61,11 @@ function Search({executeSearch, modalMessage, results, setModalMessage}) {
         </div>
         <button type="submit">Submit</button>
       </form>
-      {results && (
+      {results && results.length > 0 && (
         <div className="results">
           <h2>Search Results</h2>
           <ul className="results__books" onClick={handleClick}>{listOfBooks}</ul>
         </div>
-      )}
-      {modalMessage && (
-        <Modal description={modalMessage} closeModal={closeModal} />
       )}
       <Outlet />
     </>
